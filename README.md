@@ -28,7 +28,9 @@ Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
 
 ### Load processd GroupLens MoviesLens dataset into mysql
 
-* Suppose you have installed **MariaDB**, then execute the following sql.  
+* Suppose you have installed **MariaDB**.
+* Modify the `absolute-directory` to fit your computer in `./src/main/resources/import_movielens_dataset.sql`
+* Then execute the sql.   
   `mysql -u root < ./src/main/resources/import_movielens_dataset.sql`
 
 ### Build and run
@@ -36,7 +38,7 @@ Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
 * Build with maven wrapper.  
   `./mvnw clean package`
 * Run with Java.  
-  `java -jar target/recommender-0.0.1-SNAPSHOT.jar`
+  `java -jar ./target/recommender-0.0.1-SNAPSHOT.jar`
 * Open your browser to see the demo.  
   `http://localhost:8080`
 

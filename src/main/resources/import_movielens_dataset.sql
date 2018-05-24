@@ -1,6 +1,4 @@
 
-SET @data_directory := '/Users/didi/MyWorkspace/recommender/ml-1m';
-
 CREATE DATABASE recommender;
 
 USE recommender;
@@ -18,7 +16,7 @@ CREATE TABLE users (
     INDEX (user_id)
 );
 
-LOAD DATA LOCAL INFILE '/Users/didi/MyWorkspace/recommender/ml-1m/users.dat'
+LOAD DATA LOCAL INFILE '/absolute-directory/recommender/ml-1m/users.dat'
 INTO TABLE users
 FIELDS TERMINATED BY '::'
 LINES TERMINATED BY '\n';
@@ -34,7 +32,7 @@ CREATE TABLE movies (
     INDEX (movie_id)
 );
 
-LOAD DATA LOCAL INFILE '/Users/didi/MyWorkspace/recommender/ml-1m/movies.dat'
+LOAD DATA LOCAL INFILE '/absolute-directory/recommender/ml-1m/movies.dat'
 INTO TABLE movies
 FIELDS TERMINATED BY '::'
 LINES TERMINATED BY '\n';
@@ -51,7 +49,7 @@ CREATE TABLE ratings (
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
 );
 
-LOAD DATA LOCAL INFILE '/Users/didi/MyWorkspace/recommender/ml-1m/ratings.dat'
+LOAD DATA LOCAL INFILE '/absolute-directory/recommender/ml-1m/ratings.dat'
 INTO TABLE ratings
 FIELDS TERMINATED BY '::'
 LINES TERMINATED BY '\n';
