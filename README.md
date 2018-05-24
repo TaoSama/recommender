@@ -44,5 +44,5 @@ Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
 
 # License
 
-MIT
+[MIT](./LICENSE)
 
