@@ -1,0 +1,45 @@
+
+database:
+  serverName: localhost
+  databaseName: recommender
+  username: root
+  password: # Login password of the database.
+  driverClassName: com.mysql.jdbc.Driver
+
+# thymeleaf
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+    cache: false
+    servlet:
+      content-type: text/html
+
+grouplens:
+  userSize: 6040
+  movieSize: 3952
+  occupations:
+    - other or not specified
+    - academic/educator
+    - artist
+    - clerical/admin
+    - college/grad student
+    - customer service
+    - doctor/health care
+    - executive/managerial
+    - farmer
+    - homemaker
+    - K-12 student
+    - lawyer
+    - programmer
+    - retired
+    - sales/marketing
+    - scientist
+    - self-employed
+    - technician/engineer
+    - tradesman/craftsman
+    - unemployed
+    - writer
