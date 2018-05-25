@@ -3,7 +3,7 @@ A user-based recommender system, based on Apache Mahout, GroupLens MovieLens dat
 
 ## Framework used
 
-Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
+Apache Mahout, Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
 
 # How to install
 
@@ -23,7 +23,7 @@ Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
 
 * Clone from repository.  
   `git clone git@github.com:TaoSama/recommender.git`
-* Then work aroud in the project root directory.  
+* Then work around in root directory of the project.  
   `cd recommender`
 
 ### Load processd GroupLens MoviesLens dataset into mysql
