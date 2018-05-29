@@ -1,9 +1,14 @@
 package com.wmw.recommender.action;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
 import org.apache.mahout.cf.taste.impl.model.jdbc.ReloadFromJDBCDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
@@ -52,6 +57,12 @@ public class UserBasedRecommenderExample {
           preferenceColumn,
           timestampColumn));
 
+      ScheduledExecutorService scheduledExecutorService
+          = Executors.newSingleThreadScheduledExecutor();
+      
+      Runnable runnable = () -> model.refresh(null);
+      scheduledExecutorService.scheduleAtFixedRate(runnable, 5, 5, TimeUnit.SECONDS);
+
       UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
       UserNeighborhood neighborhood = new NearestNUserNeighborhood(
           NEAREST_USER_NEIGHBORHOOD, similarity, model);
@@ -61,11 +72,16 @@ public class UserBasedRecommenderExample {
       log.info("User based recommender was built.");
 
     } catch (Exception e) {
-      log.error("Error when building user base recommender||msg={}", e.toString(), e);
+      log.error("Error when building user base recommender, msg={}", e.toString(), e);
     }
   }
 
-  List<RecommendedItem> recommend(int userId, int number) throws Exception {
-    return userBasedRecommender.recommend(userId, number);
+  public List<RecommendedItem> recommend(int userId, int number) {
+    try {
+      return userBasedRecommender.recommend(userId, number);
+    } catch (TasteException e) {
+      log.error("Error when recommending for user (userId={}), msg={}", userId, e.toString(), e);
+      return Collections.emptyList();
+    }
   }
 }

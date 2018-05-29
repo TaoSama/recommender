@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <title>Profile &middot; Recommender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <style type="text/css" th:inline="text">
+        body {
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+
+        /* Custom container */
+        .container-narrow {
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .container-narrow > hr {
+            margin: 30px 0;
+        }
+
+        /* Main marketing message and sign up button */
+        .jumbotron {
+            margin: 60px 0;
+            text-align: center;
+        }
+        .jumbotron h1 {
+            font-size: 72px;
+            line-height: 1;
+        }
+        .jumbotron .btn {
+            font-size: 21px;
+            padding: 14px 24px;
+        }
+
+        /* Supporting marketing content */
+        .marketing {
+            margin: 60px 0;
+        }
+        .marketing p + h4 {
+            margin-top: 28px;
+        }
+
+        .vote-star{
+            display:inline-block;/*内联元素转换成块元素，并不换行 weisay.com*/
+            margin-right:6px;
+            width:85px;/*5个星星的宽度 weisay.com*/
+            height:17px;/*1个星星的高度 weisay.com*/
+            overflow:hidden;
+            vertical-align:middle;
+            background:url([[@{/img/star.gif}]]) repeat-x 0 -17px;}
+        .vote-star i{
+            display:inline-block;/*内联元素转换成块元素，并不换行 weisay.com*/
+            height:17px;/*1个星星的高度 weisay.com*/
+            background:url([[@{/img/star.gif}]]) repeat-x 0 0;}
+        .vote-number{
+            vertical-align:middle;
+            font-family:微软雅黑, Verdana, Geneva, sans-serif;
+            font-size:12px;}
+    </style>
+    <link th:href="@{/css/bootstrap-responsive.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container-narrow">
+
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+            <li><a th:href="@{/}">Home</a></li>
+            <li class="active"><a th:href="@{/profile/{userId}(userId=${userId})}">Hello, <span th:text="${username}"></span></a></li>
+            <li><a th:href="@{/signout}">Sign Out</a></li>
+        </ul>
+        <h3 class="muted">User Based Recommender</h3>
+    </div>
+
+    <hr>
+
+    <h3>Rate a movie</h3>
+    <h4 th:text="${movie.title}"></h4>
+    <p th:text="${movie.genres}"></p>
+    <p><a th:text="'IMDb: ' + ${movie.urlSuffix}" th:href="'https://www.imdb.com/title/' + ${movie.urlSuffix}"></a></p>
+    <span class="vote-star"><i th:style="'width:' + ${movie.averageRating} * 20 + '%'"></i></span>
+    <span class="vote-number" th:text="${#numbers.formatDecimal(movie.averageRating * 2, 0, 1)}"></span>
+    <span class="vote-number" th:text="'(' + ${movie.ratedUserCount} + ' users rated)'"></span>
+
+    <hr>
+
+    <form th:action="@{/profile/{userId}/{movieId}(userId=${userId},movieId=${movie.movieId})}" th:object="${rating}" method="post">
+        <p>
+            <select name="rating" th:field="*{rating}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+        <p>
+            <button class="btn btn-small" type="submit">Rate it</button>
+        </p>
+    </form>
+    <p th:if="${success} != 'not'" th:text="${success} == 'true' ? 'Rating OK!' : 'Rating failed!'"></p>
+    <tr><td><a class="btn" th:href="@{/profile/{userId}(userId=${userId})}">Back</a></td></tr>
+
+    <hr>
+
+    <div class="footer">
+        <p>&copy; Wang Mingwei 2018</p>
+    </div>
+
+</div> <!-- /container -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/bootstrap.js}"></script>
+</body>
+</html>

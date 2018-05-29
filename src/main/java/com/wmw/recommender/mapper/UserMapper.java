@@ -11,8 +11,8 @@ import org.springframework.security.core.parameters.P;
 @Mapper
 public interface UserMapper {
 
-  @Select("SELECT * FROM users WHERE user_id = #{user_id}")
-  User findByUserId(@Param("user_id") int userId);
+  @Select("SELECT * FROM users WHERE user_id = #{userId}")
+  User findByUserId(@Param("userId") int userId);
 
   @Select("SELECT * FROM users WHERE username = #{username}")
   User findByUsername(@Param("username") String username);
@@ -23,12 +23,12 @@ public interface UserMapper {
        + "#{gender},"
        + "#{age},"
        + "#{occupation},"
-       + "#{zip_code})")
+       + "#{zipCode})")
   void addUser(@Param("username") String username,
                @Param("password") String password,
                @Param("gender") char gender,
                @Param("age") int age,
                @Param("occupation") int occupation,
-               @Param("zip_code") String zipCode);
+               @Param("zipCode") String zipCode);
 
 }
