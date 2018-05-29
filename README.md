@@ -29,6 +29,8 @@ Apache Mahout, Spring Boot, Spring Security, Mybatis, Thymeleaf, Bootstrap, ...
 ### Load processd GroupLens MoviesLens dataset into mysql
 
 * Suppose you have installed **MariaDB**.
+* Start mysql service.  
+  `brew services start mysql` (for Mac users)
 * Modify the `absolute-directory` to fit your computer in `./src/main/resources/import_movielens_dataset.sql`
 * Then execute the sql.   
   `mysql -u root < ./src/main/resources/import_movielens_dataset.sql`
