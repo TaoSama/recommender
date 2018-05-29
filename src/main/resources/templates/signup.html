@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Sign in &middot; Twitter Bootstrap</title>
+    <title>Sign up &middot; Recommender</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -16,7 +16,7 @@
             background-color: #f5f5f5;
         }
 
-        .form-signin {
+        .form-signup {
             max-width: 300px;
             padding: 19px 29px 29px;
             margin: 0 auto 20px;
@@ -29,18 +29,10 @@
             -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
             box-shadow: 0 1px 2px rgba(0,0,0,.05);
         }
-        .form-signin .form-signin-heading,
-        .form-signin .checkbox {
+        .form-signup .form-signup-heading,
+        .form-signup .checkbox {
             margin-bottom: 10px;
         }
-        .form-signin input[type="text"],
-        .form-signin input[type="password"] {
-            font-size: 16px;
-            height: auto;
-            margin-bottom: 15px;
-            padding: 7px 9px;
-        }
-
     </style>
     <link th:href="@{/css/bootstrap-responsive.css}" rel="stylesheet">
 </head>
@@ -49,24 +41,94 @@
 
 <div class="container">
 
-    <form class="form-signin" th:action="@{/signup}" th:object="${user}" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
+    <form class="form-signup" th:action="@{/signup}" th:object="${user}" method="post">
+        <h2 class="form-signup-heading">Sign up</h2>
         <table>
             <tr>
-                <td><input type="text" class="input-block-level" placeholder="Username" th:field="*{username}"></td>
+                <label>Username</label>
+                <td><input type="text" class="input-block-level" th:field="*{username}"></td>
                 <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
             </tr>
         </table>
         <table>
             <tr>
-                <td><input type="password" class="input-block-level" placeholder="Password" th:field="*{password}"></td>
+                <label>Password</label>
+                <td><input type="password" class="input-block-level" th:field="*{password}"></td>
                 <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
             </tr>
         </table>
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+        <table>
+            <tr>
+                <label>Confirm password</label>
+                <td><input type="password" class="input-block-level" th:field="*{confirmPassword}"></td>
+                <td th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <label>Gender</label>
+                <td>
+                    <select name="gender" th:field="*{gender}">
+                        <option value="F" selected>Female</option>
+                        <option value="M">Male</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <label>Age</label>
+                <td>
+                    <select name="age" th:field="*{age}">
+                        <option value="1">Under 18</option>
+                        <option value="18">18-24</option>
+                        <option value="25">25-34</option>
+                        <option value="35">35-44</option>
+                        <option value="45">45-49</option>
+                        <option value="50">50-55</option>
+                        <option value="56">56+</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <label>Occupation</label>
+                <td>
+                    <select name="occupation" th:field="*{occupation}">
+                        <option value="0">other or not specified</option>
+                        <option value="1">academic/educator</option>
+                        <option value="2">artist</option>
+                        <option value="3">clerical/admin</option>
+                        <option value="4">college/grad student</option>
+                        <option value="5">customer service</option>
+                        <option value="6">doctor/health care</option>
+                        <option value="7">executive/managerial</option>
+                        <option value="8">farmer</option>
+                        <option value="9">homemaker</option>
+                        <option value="10">K-12 student</option>
+                        <option value="11">lawyer</option>
+                        <option value="12">programmer</option>
+                        <option value="13">retired</option>
+                        <option value="14">sales/marketing</option>
+                        <option value="15">scientist</option>
+                        <option value="16">self-employed</option>
+                        <option value="17">technician/engineer</option>
+                        <option value="18">tradesman/craftsman</option>
+                        <option value="19">unemployed</option>
+                        <option value="20">writer</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <label>Zip Code</label>
+                <td><input type="text" class="input-block-level" th:field="*{zipCode}"></td>
+                <td th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></td>
+            </tr>
+        </table>
+        <button class="btn btn-large btn-primary" type="submit">Sign up</button>
     </form>
 
 </div> <!-- /container -->

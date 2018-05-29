@@ -24,6 +24,8 @@ public class User implements UserDetails {
   private String username;
   @Size(min = 5, max = 10)
   private String password;
+  @Size(min = 5, max = 10)
+  private String confirmPassword;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

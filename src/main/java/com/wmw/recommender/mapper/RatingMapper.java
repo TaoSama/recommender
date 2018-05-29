@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface RatingMapper {
 
-  @Select("select * from ratings where user_id = #{userId}")
+  @Select("SELECT * FROM ratings WHERE user_id = #{userId}")
   List<Rating> findByUserId(@Param("userId") int userId);
 }
