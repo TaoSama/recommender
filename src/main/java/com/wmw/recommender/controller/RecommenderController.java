@@ -146,7 +146,7 @@ public class RecommenderController {
   @GetMapping("/profile/{userId}")
   public String profileGet(@PathVariable int userId, Rating rating, ModelMap map) {
     List<RecommendedMovie> recommendedMovies = recommendedMoviesReference.get();
-    log.info("Recommended in profile page, movies={}", recommendedMovies);
+    log.info("Hot recommendations in profile page, movies={}", recommendedMovies);
     List<RecommendedMovie> userBasedRecommendedMovies =
         userBasedRecommender.recommend(userId, 6)
             .stream()
@@ -160,9 +160,9 @@ public class RecommenderController {
               return recommendedMovie;
             })
             .collect(Collectors.toList());
+    log.info("User based recommendations in profile page, movies={}", userBasedRecommendedMovies);
     userBasedRecommendedMovies.addAll(recommendedMovies);
     userBasedRecommendedMovies = userBasedRecommendedMovies.subList(0, 6);
-    log.info("Recommended in profile page, movies={}", userBasedRecommendedMovies);
 
     map.put("umovies", getUserRatedMovies(userId, 6));
     map.put("movies", userBasedRecommendedMovies);
