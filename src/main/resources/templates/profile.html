@@ -95,15 +95,17 @@
                         <span class="vote-number" th:text="${#numbers.formatDecimal(umovie.averageRating * 2, 0, 1)}"></span>
                     </td>
                 </tr>
-                <tr><td><h4>...</h4></td></tr>
-                <tr><td><a class="btn" th:href="@{/profile/{userId}/showall(userId=${userId})}">Show all</a></td></tr>
+                <tr><td><h4 th:if="${umovies.size()} == 0" th:text="'You haven\'t rated any movies yet!'"></h4></td></tr>
+                <tr><td><h4 th:if="${umovies.size()} == 0" th:text="'Go and rate some movies!'"></h4></td></tr>
+                <tr><td><h4 th:if="${umovies.size()} == 6" th:text="..."></h4></td></tr>
+                <tr><td><a class="btn" th:if="${umovies.size()} == 6" th:href="@{/profile/{userId}/showall(userId=${userId})}">Show all</a></td></tr>
             </table>
         </div>
     </div>
 
     <hr>
 
-    <h3>You may also like</h3>
+    <h3>You may like</h3>
     <div class="row-fluid marketing">
         <div class="span6">
             <h4 th:text="${movies[0].title}"></h4>
