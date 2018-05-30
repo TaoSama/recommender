@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Slf4j
-public class HelloWorldController {
+public class RecommenderController {
 
   private UserMapper userMapper;
   private MovieMapper movieMapper;
@@ -96,10 +96,10 @@ public class HelloWorldController {
   private List<String> occupations;
 
   @Autowired
-  public HelloWorldController(UserMapper userMapper,
-                              MovieMapper movieMapper,
-                              RatingMapper ratingMapper,
-                              UserBasedRecommenderExample userBasedRecommender) {
+  public RecommenderController(UserMapper userMapper,
+                               MovieMapper movieMapper,
+                               RatingMapper ratingMapper,
+                               UserBasedRecommenderExample userBasedRecommender) {
     this.userMapper = userMapper;
     this.movieMapper = movieMapper;
     this.ratingMapper = ratingMapper;
