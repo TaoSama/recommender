@@ -54,3 +54,16 @@ INTO TABLE ratings
 FIELDS TERMINATED BY '::'
 LINES TERMINATED BY '\n';
 
+--------------------------------------------------------------
+
+-- MovieID::UrlSuffix
+CREATE TABLE imdb_links (
+    movie_id INT NOT NULL,
+    url_suffix VARCHAR(100) NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
+);
+
+LOAD DATA LOCAL INFILE '/absolute-directory/recommender/ml-1m/imdb_links.dat'
+INTO TABLE imdb_links
+FIELDS TERMINATED BY '::'
+LINES TERMINATED BY '\n';

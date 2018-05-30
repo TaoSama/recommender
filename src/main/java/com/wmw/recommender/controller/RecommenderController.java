@@ -1,10 +1,12 @@
 package com.wmw.recommender.controller;
 
 import com.wmw.recommender.action.UserBasedRecommenderExample;
+import com.wmw.recommender.domain.ImdbLink;
 import com.wmw.recommender.domain.Movie;
 import com.wmw.recommender.domain.Rating;
 import com.wmw.recommender.domain.RecommendedMovie;
 import com.wmw.recommender.domain.User;
+import com.wmw.recommender.mapper.ImdbLinkMapper;
 import com.wmw.recommender.mapper.MovieMapper;
 import com.wmw.recommender.mapper.RatingMapper;
 import com.wmw.recommender.mapper.UserMapper;
@@ -49,6 +51,7 @@ public class RecommenderController {
   private UserMapper userMapper;
   private MovieMapper movieMapper;
   private RatingMapper ratingMapper;
+  private ImdbLinkMapper imdbLinkMapper;
 
   private UserBasedRecommenderExample userBasedRecommender;
 
@@ -64,9 +67,12 @@ public class RecommenderController {
           RecommendedMovie recommendedMovie =
               top100RecommendedMovies.get(random.nextInt(top100RecommendedMovies.size()));
           Movie movie = movieMapper.findByMovieId(recommendedMovie.getMovieId());
+          ImdbLink imdbLink = imdbLinkMapper.findByMovieId(recommendedMovie.getMovieId());
           recommendedMovie.setTitle(movie.getTitle());
           recommendedMovie.setGenres(movie.getGenres());
-          recommendedMovie.setUrlSuffix(movie.getUrlSuffix());
+          if (Objects.nonNull(imdbLink)) {
+            recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
+          }
           return recommendedMovie;
         })
         .collect(Collectors.toList());
@@ -99,10 +105,12 @@ public class RecommenderController {
   public RecommenderController(UserMapper userMapper,
                                MovieMapper movieMapper,
                                RatingMapper ratingMapper,
+                               ImdbLinkMapper imdbLinkMapper,
                                UserBasedRecommenderExample userBasedRecommender) {
     this.userMapper = userMapper;
     this.movieMapper = movieMapper;
     this.ratingMapper = ratingMapper;
+    this.imdbLinkMapper = imdbLinkMapper;
     this.userBasedRecommender = userBasedRecommender;
   }
 
@@ -131,10 +139,13 @@ public class RecommenderController {
         .sorted(Comparator.comparing(Rating::getTimestamp).reversed())
         .map(rating -> {
           Movie movie = movieMapper.findByMovieId(rating.getMovieId());
+          ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
           RecommendedMovie recommendedMovie = new RecommendedMovie();
           recommendedMovie.setMovieId(movie.getMovieId());
           recommendedMovie.setAverageRating(rating.getRating());
-          recommendedMovie.setUrlSuffix(movie.getUrlSuffix());
+          if (Objects.nonNull(imdbLink)) {
+            recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
+          }
           recommendedMovie.setGenres(movie.getGenres());
           recommendedMovie.setTitle(movie.getTitle());
           return recommendedMovie;
@@ -151,10 +162,13 @@ public class RecommenderController {
         userBasedRecommender.recommend(userId, 6)
             .stream()
             .map(recommendedItem -> {
-              RecommendedMovie recommendedMovie =
-                  ratingMapper.findByMovieId((int) recommendedItem.getItemID());
-              Movie movie = movieMapper.findByMovieId((int) recommendedItem.getItemID());
-              recommendedMovie.setUrlSuffix(movie.getUrlSuffix());
+              int movieId = (int) recommendedItem.getItemID();
+              RecommendedMovie recommendedMovie = ratingMapper.findByMovieId(movieId);
+              Movie movie = movieMapper.findByMovieId(movieId);
+              ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
+              if (Objects.nonNull(imdbLink)) {
+                recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
+              }
               recommendedMovie.setGenres(movie.getGenres());
               recommendedMovie.setTitle(movie.getTitle());
               return recommendedMovie;
@@ -178,7 +192,10 @@ public class RecommenderController {
       ModelMap map) {
     RecommendedMovie recommendedMovie = ratingMapper.findByMovieId(movieId);
     Movie movie = movieMapper.findByMovieId(movieId);
-    recommendedMovie.setUrlSuffix(movie.getUrlSuffix());
+    ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
+    if (Objects.nonNull(imdbLink)) {
+      recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
+    }
     recommendedMovie.setGenres(movie.getGenres());
     recommendedMovie.setTitle(movie.getTitle());
     map.put("movie", recommendedMovie);
@@ -194,7 +211,10 @@ public class RecommenderController {
                             ModelMap map) {
     RecommendedMovie recommendedMovie = ratingMapper.findByMovieId(movieId);
     Movie movie = movieMapper.findByMovieId(movieId);
-    recommendedMovie.setUrlSuffix(movie.getUrlSuffix());
+    ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
+    if (Objects.nonNull(imdbLink)) {
+      recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
+    }
     recommendedMovie.setGenres(movie.getGenres());
     recommendedMovie.setTitle(movie.getTitle());
     map.put("movie", recommendedMovie);
