@@ -165,7 +165,7 @@ public class RecommenderController {
               int movieId = (int) recommendedItem.getItemID();
               RecommendedMovie recommendedMovie = ratingMapper.findByMovieId(movieId);
               Movie movie = movieMapper.findByMovieId(movieId);
-              ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
+              ImdbLink imdbLink = imdbLinkMapper.findByMovieId(movieId);
               if (Objects.nonNull(imdbLink)) {
                 recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
               }
