@@ -192,7 +192,7 @@ public class RecommenderController {
       ModelMap map) {
     RecommendedMovie recommendedMovie = ratingMapper.findByMovieId(movieId);
     Movie movie = movieMapper.findByMovieId(movieId);
-    ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
+    ImdbLink imdbLink = imdbLinkMapper.findByMovieId(movieId);
     if (Objects.nonNull(imdbLink)) {
       recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
     }
@@ -211,7 +211,7 @@ public class RecommenderController {
                             ModelMap map) {
     RecommendedMovie recommendedMovie = ratingMapper.findByMovieId(movieId);
     Movie movie = movieMapper.findByMovieId(movieId);
-    ImdbLink imdbLink = imdbLinkMapper.findByMovieId(rating.getMovieId());
+    ImdbLink imdbLink = imdbLinkMapper.findByMovieId(movieId);
     if (Objects.nonNull(imdbLink)) {
       recommendedMovie.setUrlSuffix(imdbLink.getUrlSuffix());
     }
