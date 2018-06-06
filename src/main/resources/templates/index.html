@@ -76,7 +76,7 @@
       <li class="active"><a href="#">Home</a></li>
       <li><a th:href="@{/profile/{userId}(userId=${userId})}" sec:authorize="isAuthenticated()" >
         Hello, <span sec:authentication="name"></span></a></li>
-      <li><a th:href="@{/signout}" sec:authorize="isAuthenticated()">Sign Out</a></li>
+      <li><a th:href="@{/signout}" sec:authorize="isAuthenticated()">Sign out</a></li>
       <li><a th:href="@{/signin}" sec:authorize="isAnonymous()">Sign in</a></li>
     </ul>
     <h3 class="muted">User Based Recommender</h3>

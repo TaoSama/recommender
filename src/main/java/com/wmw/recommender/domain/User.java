@@ -20,11 +20,11 @@ public class User implements UserDetails {
   private int occupation;
   private String zipCode;
 
-  @Size(min = 5, max = 10)
+  @Size(min = 5, max = 20)
   private String username;
-  @Size(min = 5, max = 10)
+  @Size(min = 5, max = 16)
   private String password;
-  @Size(min = 5, max = 10)
+  @Size(min = 5, max = 16)
   private String confirmPassword;
 
   @Override
