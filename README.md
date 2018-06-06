@@ -44,6 +44,11 @@ Apache Mahout, Spring Boot, Spring Web MVC, MyBatis, Spring Security, Thymeleaf,
 * Open your browser to see the demo.  
   `http://localhost:8080`
 
+### Developers
+
+* [TaoSama](https://github.com/TaoSama)
+* [Cloverii](https://github.com/Cloverii)
+
 # License
 
 [MIT](./LICENSE)
